@@ -61,3 +61,9 @@ function showError(message, status = null) {
   forecast.classList.add('hidden');
   forecast.innerHTML = '';
 }
+
+// Validate city input for invalid characters
+function validateCityInput(city) {
+  const regex = /^[a-zA-Z\s-]+$/; // Allow letters, spaces, and hyphens
+  return regex.test(city);
+}
