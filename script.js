@@ -30,3 +30,13 @@ function updateRecentCities() {
     recentSearches.map(city => `<option value="${city}">${city}</option>`).join('');
   toggleRecentCities(false); // Hide by default, shown on input focus
 }
+
+// Add city to recent searches
+function addToRecentSearches(city) {
+  if (city && !recentSearches.includes(city)) {
+    recentSearches.unshift(city);
+    if (recentSearches.length > 5) recentSearches.pop();
+    localStorage.setItem('recentCities', JSON.stringify(recentSearches));
+    updateRecentCities();
+  }
+}
