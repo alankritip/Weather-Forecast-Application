@@ -131,3 +131,39 @@ function displayCurrentWeather(data) {
   forecastHeading.classList.remove('hidden');
   forecast.classList.remove('hidden');
 }
+
+// Display 5-day forecast, filtering for 12:00:00 data
+function displayForecast(data) {
+  forecast.innerHTML = '';
+  const dailyData = data.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 5);
+  dailyData.forEach(day => {
+    const date = new Date(day.dt_txt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    console.log('Forecast Icon Code:', day.weather[0].icon); // Debug icon code
+    forecast.innerHTML += `
+      <div class="bg-gray-800 p-4 rounded-lg text-center text-white">
+        <p class="font-semibold">${date}</p>
+        <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="Weather Icon" class="w-16 h-16 mx-auto" onerror="this.src='https://openweathermap.org/img/wn/01d.png'">
+        <p><i class="fa-solid fa-temperature-three-quarters"></i> ${Math.round(day.main.temp)}°C</p>
+        <p><i class="fa-solid fa-droplet"></i> ${day.main.humidity}%</p>
+        <p><i class="fa-solid fa-wind"></i> ${day.wind.speed} m/s</p>
+      </div>
+    `;
+  });
+}
+
+// Event listener for search button
+function getWeather() {
+  const city = cityInput.value.trim();
+  if (!city) {
+    showError('Please enter a city name.');
+    return;
+  }
+  fetchWeatherByCity(city);
+}
+
+// Event listener for Enter key
+cityInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    getWeather();
+  }
+});
