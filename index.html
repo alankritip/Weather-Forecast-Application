@@ -12,7 +12,20 @@
 
   <div class="w-full max-w-4xl mx-auto">
     <!-- Search and Location Controls -->
-    <div class="flex flex-col sm:flex-row gap-4 mb-16 sm:mb-20"></div>
+    <div class="flex flex-col sm:flex-row gap-4 mb-16 sm:mb-20">
+       <!-- Search Input with Dropdown -->
+      <div class="relative flex-1 p-2 rounded-3xl border border-white bg-transparent text-white">
+        <label for="city" class="sr-only">Search for a city</label>
+        <div class="relative">
+          <input 
+            type="text" 
+            id="city" 
+            placeholder="Enter city" 
+            class="w-full pl-10 pr-4 py-2 rounded-3xl  text-white placeholder-white/70 focus:outline-none text-sm sm:text-base"
+            onfocus="toggleRecentCities(true)"
+            onblur="setTimeout(() => toggleRecentCities(false), 200)"
+          />
+    </div>
 
   <script src="script.js"></script>
 </body>
