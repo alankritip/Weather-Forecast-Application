@@ -101,3 +101,15 @@ async function fetchWeatherByCoords(lat, lon) {
     showError('Unable to fetch weather for your location.', error.cause);
   }
 }
+
+// Fetch 5-day forecast
+async function fetchForecast(lat, lon) {
+  try {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+    if (!response.ok) throw new Error('Forecast not available', { cause: response.status });
+    const data = await response.json();
+    displayForecast(data);
+  } catch (error) {
+    showError('Unable to fetch forecast.', error.cause);
+  }
+}
