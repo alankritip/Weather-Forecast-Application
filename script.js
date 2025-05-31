@@ -9,3 +9,6 @@ const tempDiv = document.getElementById('temp-div');
 const weatherInfo = document.getElementById('weather-info');
 const forecastHeading = document.getElementById('forecast-heading');
 const forecast = document.getElementById('forecast');
+
+// Load recent cities from localStorage
+let recentSearches = JSON.parse(localStorage.getItem('recentCities')) || [];
