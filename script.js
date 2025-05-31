@@ -67,3 +67,22 @@ function validateCityInput(city) {
   const regex = /^[a-zA-Z\s-]+$/; // Allow letters, spaces, and hyphens
   return regex.test(city);
 }
+
+// Fetch current weather by city
+async function fetchWeatherByCity(city) {
+  if (!validateCityInput(city)) {
+    showError('Invalid city name. Use letters, spaces, or hyphens only.');
+    return;
+  }
+  try {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+    if (!response.ok) throw new Error('API error', { cause: response.status });
+    const data = await response.json();
+    console.log('Weather Icon Code:', data.weather[0].icon); // Debug icon code
+    displayCurrentWeather(data);
+    addToRecentSearches(city);
+    await fetchForecast(data.coord.lat, data.coord.lon);
+  } catch (error) {
+    showError('Invalid city name or API error.', error.cause);
+  }
+}
