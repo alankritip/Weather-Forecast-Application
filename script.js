@@ -167,3 +167,18 @@ cityInput.addEventListener('keypress', (e) => {
     getWeather();
   }
 });
+
+// Event listener for current location
+currentLocationBtn.addEventListener('click', () => {
+  if (!navigator.geolocation) {
+    showError('Geolocation is not supported by your browser.');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      fetchWeatherByCoords(latitude, longitude);
+    },
+    () => showError('Geolocation not supported or permission denied.')
+  );
+});
