@@ -191,3 +191,7 @@ recentCities.addEventListener('change', () => {
     fetchWeatherByCity(city);
   }
 });
+
+
+// Initialize recent cities on page load
+updateRecentCities();
