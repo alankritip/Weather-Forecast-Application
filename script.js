@@ -12,3 +12,10 @@ const forecast = document.getElementById('forecast');
 
 // Load recent cities from localStorage
 let recentSearches = JSON.parse(localStorage.getItem('recentCities')) || [];
+
+// Toggle recent cities dropdown visibility
+function toggleRecentCities(show) {
+  if (show && recentSearches.length > 0) {
+    recentCities.classList.remove('hidden');
+  }
+}
