@@ -40,3 +40,24 @@ function addToRecentSearches(city) {
     updateRecentCities();
   }
 }
+
+// Show error message with specific handling for API status codes
+function showError(message, status = null) {
+  let errorMessage = message;
+  if (status === 404) {
+    errorMessage = 'City not found. Please check the spelling.';
+  } else if (status === 429) {
+    errorMessage = 'API rate limit exceeded. Please try again later.';
+  } else if (status) {
+    errorMessage = `API error (${status}). Please try again.`;
+  }
+  document.getElementById('errorMessage').textContent = errorMessage;
+  document.getElementById('errorMessage').classList.remove('hidden');
+  weatherContainer.classList.add('hidden');
+  weatherIcon.classList.add('hidden');
+  tempDiv.textContent = '';
+  weatherInfo.textContent = '';
+  forecastHeading.classList.add('hidden');
+  forecast.classList.add('hidden');
+  forecast.innerHTML = '';
+}
