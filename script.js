@@ -86,3 +86,18 @@ async function fetchWeatherByCity(city) {
     showError('Invalid city name or API error.', error.cause);
   }
 }
+
+// Fetch current weather by coordinates
+async function fetchWeatherByCoords(lat, lon) {
+  try {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+    if (!response.ok) throw new Error('Location not found', { cause: response.status });
+    const data = await response.json();
+    console.log('Weather Icon Code:', data.weather[0].icon); // Debug icon code
+    displayCurrentWeather(data);
+    addToRecentSearches(data.name);
+    await fetchForecast(lat, lon);
+  } catch (error) {
+    showError('Unable to fetch weather for your location.', error.cause);
+  }
+}
