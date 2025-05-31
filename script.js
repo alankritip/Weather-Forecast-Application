@@ -182,3 +182,12 @@ currentLocationBtn.addEventListener('click', () => {
     () => showError('Geolocation not supported or permission denied.')
   );
 });
+
+// Event listener for recent cities dropdown
+recentCities.addEventListener('change', () => {
+  const city = recentCities.value;
+  if (city) {
+    cityInput.value = city;
+    fetchWeatherByCity(city);
+  }
+});
