@@ -113,3 +113,21 @@ async function fetchForecast(lat, lon) {
     showError('Unable to fetch forecast.', error.cause);
   }
 }
+
+// Display current weather
+function displayCurrentWeather(data) {
+  document.getElementById('errorMessage').classList.add('hidden');
+  weatherContainer.classList.remove('hidden');
+  weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  weatherIcon.classList.remove('hidden');
+  tempDiv.textContent = `${Math.round(data.main.temp)}°C`;
+  weatherInfo.innerHTML = `
+    <p class="text-white">${data.name} (${new Date().toISOString().split('T')[0]})</p>
+    <div class="flex justify-around mt-6">
+      <p class="text-white"><i class="fa-solid fa-wind"></i> ${data.wind.speed} m/s</p>
+      <p class="text-white"><i class="fa-solid fa-droplet"></i> ${data.main.humidity}%</p>
+    </div>
+  `;
+  forecastHeading.classList.remove('hidden');
+  forecast.classList.remove('hidden');
+}
