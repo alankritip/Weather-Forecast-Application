@@ -19,3 +19,14 @@ function toggleRecentCities(show) {
     recentCities.classList.remove('hidden');
   }
 }
+
+// Update recent cities dropdown
+function updateRecentCities() {
+  if (recentSearches.length === 0) {
+    toggleRecentCities(false);
+    return;
+  }
+  recentCities.innerHTML = '<option value="" disabled selected>Select a recent city</option>' +
+    recentSearches.map(city => `<option value="${city}">${city}</option>`).join('');
+  toggleRecentCities(false); // Hide by default, shown on input focus
+}
